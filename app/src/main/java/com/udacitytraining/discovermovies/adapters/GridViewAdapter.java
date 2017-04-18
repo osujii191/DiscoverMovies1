@@ -1,10 +1,12 @@
 package com.udacitytraining.discovermovies.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
+import com.udacitytraining.discovermovies.MainActivity;
 import com.udacitytraining.discovermovies.Movie;
 import com.udacitytraining.discovermovies.R;
 
@@ -39,6 +42,10 @@ public class GridViewAdapter extends ArrayAdapter<Movie> {
         super(context, resource, textViewResourceId, objects);
     }
 
+    public GridViewAdapter(MainActivity context, int movie_details, int movieTitleViewId) {
+        super(context,movie_details,movieTitleViewId);
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -47,14 +54,19 @@ public class GridViewAdapter extends ArrayAdapter<Movie> {
 
         }
 
-        Movie movie = (Movie) getItem(position);
+        Movie movie =  getItem(position);
 
         ImageView movieImage = (ImageView) convertView.findViewById(R.id.movieImageViewId);
-        TextView movieText = (TextView) convertView.findViewById(R.id.movieTitleViewId);
 
-        movieText.setText(movie.getTitle());
+
+        int tempImageNum = movie.getImageNum();
         //Picasso.with(parent.getContext()).load(movie.getImageNum()).into(movieImage);
-        Glide.with(parent.getContext()).load(movie.getImageNum()).asBitmap().fitCenter().into(movieImage);
+        if (tempImageNum != 0 && tempImageNum != -1) {
+            Glide.with(parent.getContext()).load(movie.getImageNum()).asBitmap().fitCenter().into(movieImage);
+        }else if (movie.getPosterPath() != null) {
+            Log.e("GridViewAdapter",Uri.parse(movie.getPosterPath()).toString());
+            Picasso.with(parent.getContext()).load(movie.getPosterPath()).into(movieImage);
+        }
 
 
 

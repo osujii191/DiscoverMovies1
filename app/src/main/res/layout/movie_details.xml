@@ -19,11 +19,10 @@
         android:layout_gravity="bottom"
         android:id="@+id/movieTitleViewId"
         android:layout_width="match_parent"
-        android:background="@android:color/black"
         android:textColor="#FFF"
         android:layout_height="48dp"
         android:textSize="16sp"
-        android:alpha=".5"
+
         />
 
 </FrameLayout>

@@ -6,15 +6,8 @@ package com.udacitytraining.discovermovies;
 
 public class Movie {
 
-    public int getImageNum() {
-        return imageNum;
-    }
-
-    public void setImageNum(int imageNum) {
-        this.imageNum = imageNum;
-    }
-
     private int imageNum;
+    private String posterPath;
 
 
     private String title;
@@ -24,6 +17,36 @@ public class Movie {
         this.imageNum = i;
 
     }
+
+    public Movie(String title, String posterPath) {
+        this.title = title;
+        this.posterPath = posterPath;
+        this.imageNum = -1;
+
+    }
+
+
+    public int getImageNum() {
+        return imageNum;
+    }
+
+    public void setImageNum(int imageNum) {
+        this.imageNum = imageNum;
+    }
+
+
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+
+
+
 
     public String getTitle() {
         return title;
