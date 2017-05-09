@@ -42,16 +42,32 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        if (DiscoverMoviesUtil.isInternetConnected(this)) {
+            retrieveMovies();
+
+        }else  {
+            Intent noInternetIntent = new Intent(this, UnconnectedInternetActivity.class);
+            startActivity(noInternetIntent);
+        }
+
+
+
+
+
+
+
+    }
+
+    private void retrieveMovies() {
+
+
         URL popMoviesUrl = DiscoverMoviesUtil.createUrlForPopularMovies(this);
         URL topRatedUrl = DiscoverMoviesUtil.createUrlForRatedMovies(this);
 
         HttpRequestTask httpRequestTask = new HttpRequestTask();
-
         Request req = new Request.Builder().url(popMoviesUrl).build();
 
         httpRequestTask.execute(req);
-
-
 
         GridView  gridView = (GridView) findViewById(R.id.gridViewId);
         adapter = new GridViewAdapter(this,R.layout.movie_details,R.id.movieTitleViewId);
@@ -83,11 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(movieInfoIntent);
             }
         });
-
     }
-
-
-
 
 
     public class HttpRequestTask extends AsyncTask<Request,Void, String> {
@@ -108,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     res = client.newCall(req).execute();
                     resBody = res.body().string();
                 } catch (IOException e) {
-                    Toast.makeText(MainActivity.this,"Network issue", Toast.LENGTH_LONG).show();
+
                 }finally {
                     if (res != null) {
                         res.close();
@@ -161,6 +173,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (!DiscoverMoviesUtil.isInternetConnected(this)) {
+            Intent noInternetIntent = new Intent(this, UnconnectedInternetActivity.class);
+            startActivity(noInternetIntent);
+
+        }else {
+            retrieveMovies();
+        }
+
+
     }
 
     @Override

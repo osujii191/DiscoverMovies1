@@ -1,6 +1,8 @@
 package com.udacitytraining.discovermovies;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.widget.Toast;
 
@@ -43,6 +45,17 @@ public class DiscoverMoviesUtil {
         return createUrl(mainActivity,mainActivity.getString(R.string.tmdb_popular_movies_base_url));
     }
 
+
+    public static boolean isInternetConnected(Context ctx) {
+        boolean isConnected = false;
+        ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnected() ) {
+            return true;
+        }
+
+        return isConnected;
+    }
 
 
 }
