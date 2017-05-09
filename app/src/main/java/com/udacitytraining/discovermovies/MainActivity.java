@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -54,6 +56,33 @@ public class MainActivity extends AppCompatActivity {
         GridView  gridView = (GridView) findViewById(R.id.gridViewId);
         adapter = new GridViewAdapter(this,R.layout.movie_details,R.id.movieTitleViewId);
         gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent movieInfoIntent = new Intent(MainActivity.this, MovieDetailsActivity.class);
+                Movie movieItem = adapter.getItem(position);
+
+                Bundle movieInfoBundle = new Bundle();
+
+                String title = movieItem.getTitle();
+                String imagePath = movieItem.getPosterPath();
+                String rating = movieItem.getRating();
+                String releaseDate = movieItem.getRelease_date();
+                String plot = movieItem.getOverview();
+
+                movieInfoBundle.putString(getString(R.string.poster_title), title);
+                movieInfoBundle.putString(getString(R.string.poster_path), imagePath);
+                movieInfoBundle.putString(getString(R.string.overview),plot);
+                movieInfoBundle.putString(getString(R.string.rating),rating);
+                movieInfoBundle.putString(getString(R.string.release_date),releaseDate);
+
+
+                movieInfoIntent.putExtras(movieInfoBundle);
+
+                startActivity(movieInfoIntent);
+            }
+        });
 
     }
 
@@ -109,7 +138,10 @@ public class MainActivity extends AppCompatActivity {
                         String picPath = JResultsObject.getString(getString(R.string.poster_path));
                         String title = JResultsObject.getString(getString(R.string.poster_title));
                         String picUri = getString(R.string.images_base_url) + picPath;
-                        adapter.add(new Movie(title,picUri));
+                        String releaseDate = JResultsObject.getString(getString(R.string.release_date));
+                        String overview = JResultsObject.getString(getString(R.string.overview));
+                        String rating = JResultsObject.getString(getString(R.string.rating));
+                        adapter.add(new Movie(title,picUri,releaseDate,overview,rating));
 
                         Log.e(LOG_TAG,"new picpath: " + picUri);
 
@@ -117,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             } catch (JSONException e) {
-                Toast.makeText(MainActivity.this,"data issue",Toast.LENGTH_SHORT);
+                Toast.makeText(MainActivity.this,"data issue",Toast.LENGTH_SHORT).show();
             }
 
 

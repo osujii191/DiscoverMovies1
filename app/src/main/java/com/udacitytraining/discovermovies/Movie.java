@@ -6,6 +6,10 @@ package com.udacitytraining.discovermovies;
 
 public class Movie {
 
+
+    private String rating;
+    private String overview;
+    private  String release_date;
     private int imageNum;
     private String posterPath;
 
@@ -18,11 +22,13 @@ public class Movie {
 
     }
 
-    public Movie(String title, String posterPath) {
+    public Movie(String title, String posterPath, String releaseDate, String overview, String rating) {
         this.title = title;
         this.posterPath = posterPath;
         this.imageNum = -1;
-
+        this.release_date = releaseDate;
+        this.overview = overview;
+        this.rating = rating;
     }
 
 
@@ -57,7 +63,17 @@ public class Movie {
     }
 
 
+    public String getRelease_date() {
+        return release_date;
+    }
 
 
+    public String getRating() {
+        return rating;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
 
 }

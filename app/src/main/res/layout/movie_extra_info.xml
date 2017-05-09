@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/thumbnailViewId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/titleInfoViewId"
+        android:layout_toRightOf="@id/thumbnailViewId"
+        android:layout_toEndOf="@id/thumbnailViewId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        android:layout_margin="10dp"/>
+
+
+    <TextView
+        android:id="@+id/plotInfoViewId"
+        android:layout_below="@id/thumbnailViewId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Plot synopsis"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/releaseDateInfoViewId"
+        android:layout_toRightOf="@id/thumbnailViewId"
+        android:layout_toEndOf="@id/thumbnailViewId"
+        android:layout_below="@id/titleInfoViewId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="release date"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/ratingInfoViewId"
+        android:layout_toRightOf="@id/releaseDateInfoViewId"
+        android:layout_toEndOf="@id/releaseDateInfoViewId"
+        android:layout_below="@id/titleInfoViewId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="user rating"
+        android:padding="10dp"/>
+
+</RelativeLayout>
