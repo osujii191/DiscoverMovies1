@@ -1,12 +1,8 @@
 package com.udacitytraining.discovermovies;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
-import android.view.View;
 
 import com.udacitytraining.discovermovies.fragments.SortMenuFragment;
 
@@ -16,19 +12,15 @@ import com.udacitytraining.discovermovies.fragments.SortMenuFragment;
 
 public class UserPreferencesActivity extends AppCompatActivity {
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-
-    }
 
     @Override
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme);
         getFragmentManager().beginTransaction()
-                .add(new SortMenuFragment(),"SortMenuFragment")
+                .replace(android.R.id.content, new SortMenuFragment())
                 .commit();
-        return super.onCreateView(name, context, attrs);
-
     }
+
+
 }

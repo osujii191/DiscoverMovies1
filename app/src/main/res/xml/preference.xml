@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-<PreferenceCategory android:title="sort by">
+        <ListPreference android:title="Sort by..."
+            android:defaultValue="@string/sort_preference_default_value"
+            android:key="@string/sortPreferenceKey"
+            android:entries="@array/sortByViewList"
+            android:entryValues="@array/sortByValueList">
 
-        <CheckBoxPreference android:defaultValue="true" android:title="checkbox">
 
+        </ListPreference>
 
-
-        </CheckBoxPreference>
-
-    </PreferenceCategory>
 
     </PreferenceScreen>

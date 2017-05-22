@@ -1,12 +1,11 @@
 package com.udacitytraining.discovermovies;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,7 +15,6 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.udacitytraining.discovermovies.adapters.GridViewAdapter;
-import com.udacitytraining.discovermovies.fragments.SortMenuFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,19 +33,18 @@ public class MainActivity extends AppCompatActivity {
     GridViewAdapter adapter;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        PreferenceManager.setDefaultValues(this,R.xml.preference,false);
 
-
-        if (DiscoverMoviesUtil.isInternetConnected(this)) {
-            retrieveMovies();
-
-        }else  {
+        if (!DiscoverMoviesUtil.isInternetConnected(this)) {
             Intent noInternetIntent = new Intent(this, UnconnectedInternetActivity.class);
             startActivity(noInternetIntent);
+
         }
 
 
@@ -58,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void retrieveMovies() {
+    private void retrieveMovies(URL inputQryUrl) {
 
 
-        URL popMoviesUrl = DiscoverMoviesUtil.createUrlForPopularMovies(this);
-        URL topRatedUrl = DiscoverMoviesUtil.createUrlForRatedMovies(this);
+
+        URL queryUrl = inputQryUrl;
 
         HttpRequestTask httpRequestTask = new HttpRequestTask();
-        Request req = new Request.Builder().url(popMoviesUrl).build();
+        Request req = new Request.Builder().url(queryUrl).build();
 
         httpRequestTask.execute(req);
 
@@ -102,11 +99,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
     public class HttpRequestTask extends AsyncTask<Request,Void, String> {
 
         private  String resBody;
 
-        private final String LOG_TAG = this.getClass().getCanonicalName();
 
 
         @Override
@@ -144,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     JSONArray  jArrayResults = jResponseObject.getJSONArray(getString(R.string.results_key));
-                    Log.e(LOG_TAG, jArrayResults.toString());
+
                     for (int i = 0; i < jArrayResults.length(); i++) {
                         JSONObject JResultsObject = jArrayResults.getJSONObject(i);
                         String picPath = JResultsObject.getString(getString(R.string.poster_path));
@@ -155,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         String rating = JResultsObject.getString(getString(R.string.rating));
                         adapter.add(new Movie(title,picUri,releaseDate,overview,rating));
 
-                        Log.e(LOG_TAG,"new picpath: " + picUri);
+
 
                     }
 
@@ -178,11 +176,27 @@ public class MainActivity extends AppCompatActivity {
             Intent noInternetIntent = new Intent(this, UnconnectedInternetActivity.class);
             startActivity(noInternetIntent);
 
+
         }else {
-            retrieveMovies();
+
+           // SharedPreferences preferences = this.getSharedPreferences(getString(R.string.sortPreferenceKey), this.MODE_PRIVATE);
+            SharedPreferences prefs = android.preference.PreferenceManager.getDefaultSharedPreferences(this);
+            String sortValue =  prefs.getString(getString(R.string.sortPreferenceKey),getString(R.string.sort_preference_default_value));
+
+            if (sortValue.equals("0")) {
+
+                retrieveMovies(DiscoverMoviesUtil.createUrlForPopularMovies(this));
+            }else {
+                retrieveMovies(DiscoverMoviesUtil.createUrlForRatedMovies(this));
+            }
         }
 
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override

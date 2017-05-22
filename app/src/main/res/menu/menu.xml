@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/sortMenuId" android:title="Sort by"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/sortMenuId" android:title="@string/preferences_text"
+        android:icon="@drawable/preferences_ic"
+        app:showAsAction="ifRoom"/>
 </menu>

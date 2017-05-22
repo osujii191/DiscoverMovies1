@@ -1,19 +1,15 @@
 package com.udacitytraining.discovermovies.adapters;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
@@ -64,7 +60,6 @@ public class GridViewAdapter extends ArrayAdapter<Movie> {
         if (tempImageNum != 0 && tempImageNum != -1) {
             Glide.with(parent.getContext()).load(movie.getImageNum()).asBitmap().fitCenter().into(movieImage);
         }else if (movie.getPosterPath() != null) {
-            Log.e("GridViewAdapter",Uri.parse(movie.getPosterPath()).toString());
             Picasso.with(parent.getContext()).load(movie.getPosterPath()).into(movieImage);
         }
 
