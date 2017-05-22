@@ -15,7 +15,6 @@ import java.net.URL;
 
 public class DiscoverMoviesUtil {
 
-    private static final String api_key = "api_key";
 
 
 
@@ -25,7 +24,7 @@ public class DiscoverMoviesUtil {
 
         Uri popMoviesUri =
                 Uri.parse(baseUrl).buildUpon()
-                        .appendQueryParameter(api_key,ctx.getString(R.string.tmdb_api_key)).build();
+                        .appendQueryParameter(ctx.getString(R.string.api_key_str),ctx.getString(R.string.tmdb_api_key)).build();
 
         try {
             finalUrl = new URL(popMoviesUri.toString());
