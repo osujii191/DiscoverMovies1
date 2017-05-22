@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context="com.udacitytraining.discovermovies.MainActivity"
-    android:id="@+id/gridViewId"
-    android:numColumns="3"
-    android:background="@android:color/black"/>
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/black"
+
+    >
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gridViewId"
+        android:numColumns="3"
+        android:layout_weight="1"
+        />
+
+    <ImageView
+        android:src="@mipmap/themoviedb_ic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"/>
+
+
+</LinearLayout>
+
 
 
 
