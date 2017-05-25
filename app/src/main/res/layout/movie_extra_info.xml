@@ -23,8 +23,6 @@
 
         <TextView
             android:id="@+id/titleInfoViewId"
-            android:layout_toRightOf="@id/thumbnailViewId"
-            android:layout_toEndOf="@id/thumbnailViewId"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -44,9 +42,6 @@
 
         <TextView
             android:id="@+id/releaseDateInfoViewId"
-            android:layout_toRightOf="@id/thumbnailViewId"
-            android:layout_toEndOf="@id/thumbnailViewId"
-            android:layout_below="@id/titleInfoViewId"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -54,9 +49,6 @@
 
         <TextView
             android:id="@+id/ratingInfoViewId"
-            android:layout_toRightOf="@id/releaseDateInfoViewId"
-            android:layout_toEndOf="@id/releaseDateInfoViewId"
-            android:layout_below="@id/titleInfoViewId"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -66,9 +58,8 @@
 
 
 
-    <TextView
+    <ScrollView
         android:id="@+id/plotInfoViewId"
-        android:layout_below="@id/thumbnailViewId"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         tools:text="Plot synopsis"
