@@ -1,13 +1,11 @@
 package com.udacitytraining.discovermovies;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -42,8 +40,8 @@ public class MovieDetailsActivity extends AppCompatActivity{
             overview.setText(movieInfoBundle.getString(getString(R.string.overview)));
 
             //set release date
-            TextView  release_date = (TextView) findViewById(R.id.releaseDateInfoViewId);
-            release_date.setText(movieInfoBundle.getString(getString(R.string.release_date)));
+            TextView  releaseDate = (TextView) findViewById(R.id.releaseDateInfoViewId);
+            releaseDate.setText(movieInfoBundle.getString(getString(R.string.release_date)));
 
             //set rating
             TextView  rating = (TextView) findViewById(R.id.ratingInfoViewId);

@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         httpRequestTask.execute(req);
 
         GridView  gridView = (GridView) findViewById(R.id.gridViewId);
-        adapter = new GridViewAdapter(this,R.layout.movie_details,R.id.movieTitleViewId);
+        adapter = new GridViewAdapter(this,R.layout.movie_details);
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 String title = movieItem.getTitle();
                 String imagePath = movieItem.getPosterPath();
                 String rating = movieItem.getRating();
-                String releaseDate = movieItem.getRelease_date();
+                String releaseDate = movieItem.getReleaseDate();
                 String plot = movieItem.getOverview();
 
                 movieInfoBundle.putString(getString(R.string.poster_title), title);
