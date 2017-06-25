@@ -1,9 +1,11 @@
 package com.udacitytraining.discovermovies;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.v7.preference.PreferenceManager;
 import android.widget.Toast;
 
 import java.net.MalformedURLException;
@@ -36,12 +38,14 @@ public class DiscoverMoviesUtil {
     }
 
 
-    public static URL createUrlForRatedMovies(MainActivity mainActivity) {
-        return createUrl(mainActivity, mainActivity.getString(R.string.tmdb_top_rated_base_url));
-    }
 
-    public static URL createUrlForPopularMovies(MainActivity mainActivity) {
-        return createUrl(mainActivity,mainActivity.getString(R.string.tmdb_popular_movies_base_url));
+    public static URL createUrlFromSortPreference(Context ctx) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        String sortValue =  prefs.getString(ctx.getString(R.string.sortPreferenceKey),ctx.getString(R.string.sort_preference_default_value));
+
+        String url = "0".equals(sortValue) ? ctx.getString(R.string.tmdb_popular_movies_base_url) : ctx.getString(R.string.tmdb_top_rated_base_url);
+        return createUrl(ctx,url);
     }
 
 
@@ -50,11 +54,19 @@ public class DiscoverMoviesUtil {
         ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         if (activeNetwork != null && activeNetwork.isConnected() ) {
-            return true;
+            isConnected =  true;
         }
 
         return isConnected;
     }
 
 
+    public static URL createUrlFromSortPreference(Context ctx, SharedPreferences sharedPreferences, String key) {
+
+        String sortValue =  sharedPreferences.getString(key,ctx.getString(R.string.sort_preference_default_value));
+
+        String url =  "0".equals(sortValue) ? ctx.getString(R.string.tmdb_popular_movies_base_url) : ctx.getString(R.string.tmdb_top_rated_base_url);
+        return createUrl(ctx,url);
+
+    }
 }
